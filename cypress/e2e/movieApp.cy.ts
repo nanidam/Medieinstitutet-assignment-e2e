@@ -7,18 +7,43 @@ describe("happy flow", () => {
     cy.get("input").type("Lego").should("have.value", "Lego");
     cy.get("button").click();
     cy.get("h3").should("contain", "Lego");
+    cy.get("div#movie-container>div").should("have.length", 10);
+  });
+  it("should get correct movie", () => {
+    cy.get("input").type("Shrek 4-D").should("have.value", "Shrek 4-D");
+    cy.get("button").click();
+    cy.get("h3").should("contain", "Shrek 4-D");
+    cy.get("div#movie-container>div").should("have.length", 1);
   });
 });
 
-describe.only("insert a number in input field", () => {
+describe("show noMessage", () => {
   it("should display noMessage", () => {
-    const testInput = ["1", "a", "!"];
-    testInput.forEach((test: string) => {
-      cy.visit("/");
+    const testInputField = [
+      "a",
+      "!",
+      "?",
+      "+",
+      "@",
+      "#",
+      " ",
+      "chewbacka is hairy",
+    ];
+
+    for (let i = 1; i < 10; i++) {
+      testInputField.push(String(i));
+    }
+    testInputField.forEach((test: string) => {
+      cy.visit("/"); //have to reset page before each loop
       cy.get("input").type(test);
       cy.get("button").click();
       cy.get("P").should("contain", "Inga sökresultat att visa");
     });
+  });
+
+  it.only("should display noMessage when not writing anything in input field", () => {
+    cy.get("button").click();
+    cy.get("P").should("contain", "Inga sökresultat att visa");
   });
 });
 
