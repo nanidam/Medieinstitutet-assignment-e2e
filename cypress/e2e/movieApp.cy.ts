@@ -14,6 +14,7 @@ describe.only("insert a number in input field", () => {
   it("should display noMessage", () => {
     const testInput = ["1", "a", "!"];
     testInput.forEach((test: string) => {
+      cy.visit("/");
       cy.get("input").type(test);
       cy.get("button").click();
       cy.get("P").should("contain", "Inga sökresultat att visa");
