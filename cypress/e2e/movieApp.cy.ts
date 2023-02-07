@@ -3,11 +3,12 @@ beforeEach(() => {
 });
 
 describe("happy flow", () => {
-  it("should get movies title of search text", () => {
+  it.only("should get movies title of search text", () => {
     cy.get("input").type("Lego").should("have.value", "Lego");
     cy.get("button").click();
     cy.get("h3").should("contain", "Lego");
     cy.get("div#movie-container>div").should("have.length", 10);
+    cy.get("img").should("have.length", 10);
   });
   it("should get correct movie", () => {
     cy.get("input").type("Shrek 4-D").should("have.value", "Shrek 4-D");
@@ -41,7 +42,7 @@ describe("show noMessage", () => {
     });
   });
 
-  it.only("should display noMessage when not writing anything in input field", () => {
+  it("should display noMessage when not writing anything in input field", () => {
     cy.get("button").click();
     cy.get("P").should("contain", "Inga sökresultat att visa");
   });
