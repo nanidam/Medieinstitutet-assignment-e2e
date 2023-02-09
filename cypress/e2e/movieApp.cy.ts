@@ -3,17 +3,35 @@ beforeEach(() => {
 });
 
 describe("happy flow", () => {
-  it.only("should get movies title of search text", () => {
+  it("should get movie list", () => {
     cy.get("input").type("Lego").should("have.value", "Lego");
     cy.get("button").click();
     cy.get("h3").should("contain", "Lego");
     cy.get("div#movie-container>div").should("have.length", 10);
     cy.get("img").should("have.length", 10);
   });
+
   it("should get correct movie", () => {
-    cy.get("input").type("Shrek 4-D").should("have.value", "Shrek 4-D");
+    cy.get("input")
+      .type("A Cautionary Tale: The Making of 'Alpha Dog'")
+      .should("have.value", "A Cautionary Tale: The Making of 'Alpha Dog'");
     cy.get("button").click();
-    cy.get("h3").should("contain", "Shrek 4-D");
+    cy.get("h3").should(
+      "contain",
+      "A Cautionary Tale: The Making of 'Alpha Dog'"
+    );
+    cy.get("div#movie-container>div").should("have.length", 1);
+  });
+
+  it("should get correct movie with mix letters", () => {
+    cy.get("input")
+      .type("A cAuTioNaRY TAle: ThE MaKiNg of 'AlPhA DoG'")
+      .should("have.value", "A cAuTioNaRY TAle: ThE MaKiNg of 'AlPhA DoG'");
+    cy.get("button").click();
+    cy.get("h3").should(
+      "contain",
+      "A Cautionary Tale: The Making of 'Alpha Dog'"
+    );
     cy.get("div#movie-container>div").should("have.length", 1);
   });
 });
@@ -28,10 +46,10 @@ describe("show noMessage", () => {
       "@",
       "#",
       " ",
-      "chewbacka is hairy",
+      "chewbacca is hairy",
     ];
 
-    for (let i = 1; i < 10; i++) {
+    for (let i = 0; i < 10; i++) {
       testInputField.push(String(i));
     }
     testInputField.forEach((test: string) => {
@@ -92,12 +110,4 @@ describe("mock data", () => {
         },
       ]);
   });
-
-  // it("should ", () => {
-  //   cy.intercept("GET", "http://omdbapi.com/?apikey=416ed51a&s=*", {
-  //     fixture: "omdbResponse",
-  //   }).as("omdbCall");
-  //   cy.get("input").type("testMovies");
-  //   cy.get("button").click();
-  // });
 });
