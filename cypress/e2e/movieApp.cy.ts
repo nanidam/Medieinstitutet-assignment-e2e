@@ -2,7 +2,7 @@ beforeEach(() => {
   cy.visit("/"); //-> cypress.config.ts baseUrl
 });
 
-describe("happy flow", () => {
+describe("movieApp", () => {
   it("should get movie list", () => {
     cy.get("input").type("Lego").should("have.value", "Lego");
     cy.get("button").click();
@@ -38,7 +38,7 @@ describe("happy flow", () => {
 
 describe("show noMessage", () => {
   it("should display noMessage", () => {
-    const testInputField = [
+    const testInputField: string[] = [
       "a",
       "!",
       "?",
